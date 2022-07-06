@@ -1,8 +1,0 @@
--=-=-=-=-=-=-=STAN MAGAZYNU=-=-=-=-=-=-=-
-Kategoria czesci    Ilosc sztuk na stanie
-Silnik:                                 4
-Skrzynia biegow:                        2
-Karoseria:                              2
-Opony:                                  0
-Inne:                                   4
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
