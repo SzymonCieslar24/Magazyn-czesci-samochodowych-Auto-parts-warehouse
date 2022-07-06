@@ -1,15 +1,16 @@
+/**@file Plik nag³ówkowy zawieraj¹cy definicje metod klas.*/
 #include "klasy.h"
 
 void Czesc::dodaj_czesc()
 {
     cin.ignore(numeric_limits < streamsize >::max(), '\n');
-    cout << "Podaj marke samochodu" << endl;
+    cout << "Podaj marke samochodu:" << endl;
     getline(cin, marka);
-    cout << "Podaj model samochoodu" << endl;
+    cout << "Podaj model samochoodu:" << endl;
     getline(cin, model);
-    cout << "Podaj stan techniczny czesci" << endl;
+    cout << "Podaj stan techniczny czesci:" << endl;
     cin >> stan;
-    cout << "Podaj cene czesci" << endl;
+    cout << "Podaj cene czesci [PLN]:" << endl;
     cin >> cena;
 }
 void Czesc::usun_czesc(string do_usuniecia)
@@ -82,9 +83,9 @@ void Silnik::dodaj()
 {
     ofstream wyjsciowy("magazyn.txt", ios::app);
     Czesc::dodaj_czesc();
-    cout << "Podaj moc silnika" << endl;
+    cout << "Podaj moc silnika [KM]" << endl;
     cin >> moc;
-    cout << "Podaj pojemonsc silnika" << endl;
+    cout << "Podaj pojemonsc silnika [cm3]" << endl;
     cin >> pojemnosc;
     cout << "Podaj typ silnika" << endl;
     cin >> typ;
@@ -96,9 +97,9 @@ void Silnik::usun()
 {
     string do_usuniecia;
     Czesc::dodaj_czesc();
-    cout << "Podaj moc silnika" << endl;
+    cout << "Podaj moc silnika [KM]" << endl;
     cin >> moc;
-    cout << "Podaj pojemonsc silnika" << endl;
+    cout << "Podaj pojemonsc silnika [cm3]" << endl;
     cin >> pojemnosc;
     cout << "Podaj typ silnika" << endl;
     cin >> typ;
@@ -107,7 +108,7 @@ void Silnik::usun()
 }
 void Silnik::wyswietl()
 {
-    cout << "Kategoria | Marka | Model | Stan techniczny | Typ | Pojemnosc | Moc | Cena " << endl;
+    cout << "Kategoria | Marka | Model | Stan techniczny | Typ | Pojemnosc [cm3] | Moc [KM] | Cena [PLN]" << endl;
     Czesc::wyswietl_czesc("Silnik");
 }
 
@@ -136,7 +137,7 @@ void Skrzynia::usun()
 }
 void Skrzynia::wyswietl()
 {
-    cout << "Kategoria | Marka | Model | Stan techniczny | Ilosc biegow | Rodzaj | Cena " << endl;
+    cout << "Kategoria | Marka | Model | Stan techniczny | Ilosc biegow | Rodzaj | Cena [PLN]" << endl;
     Czesc::wyswietl_czesc("Skrzynia biegow");
 }
 
@@ -167,7 +168,7 @@ void Karoseria::usun()
 }
 void Karoseria::wyswietl()
 {
-    cout << "Kategoria | Marka | Model | Stan techniczny | Typ karoserii | Kolor | Cena " << endl;
+    cout << "Kategoria | Marka | Model | Stan techniczny | Typ karoserii | Kolor | Cena [PLN]" << endl;
     Czesc::wyswietl_czesc("Karoseria");
 }
 
@@ -191,16 +192,16 @@ void Opony::usun()
     Czesc::dodaj_czesc();
     cout << "Podaj rodzaj opony:" << endl;
     cin >> rodzaj;
-    cout << "Podaj szerokosc opony:" << endl;
+    cout << "Podaj szerokosc opony [mm]:" << endl;
     cin >> szerokosc;
-    cout << "Podaj profil opony:" << endl;
+    cout << "Podaj profil opony :" << endl;
     cin >> profil;
     do_usuniecia = "Opona | " + marka + " | " + model + " | " + stan + " | " + rodzaj + " | " + to_string(szerokosc) + " | " + to_string(profil) + " | " + to_string(cena);
     Czesc::usun_czesc(do_usuniecia);
 }
 void Opony::wyswietl()
 {
-    cout << "Kategoria | Marka | Model | Stan techniczny | Rodzaj | Szerokosc | Profil | Cena " << endl;
+    cout << "Kategoria | Marka | Model | Stan techniczny | Rodzaj | Szerokosc [mm] | Profil | Cena [PLN]" << endl;
     Czesc::wyswietl_czesc("Opona");
 }
 
@@ -208,7 +209,8 @@ void Inne::dodaj()
 {
     ofstream wyjsciowy("magazyn.txt", ios::app);
     cout << "Podaj nazwe czesci" << endl;
-    cin >> nazwa;
+    cin.ignore(numeric_limits < streamsize >::max(), '\n');
+    getline(cin, nazwa);
     Czesc::dodaj_czesc();
     wyjsciowy << "Inne | " << nazwa << " | " << marka << " | " << model << " | " << stan << " | " << cena << endl;
     wyjsciowy.close();
@@ -217,14 +219,15 @@ void Inne::usun()
 {
     string do_usuniecia;
     cout << "Podaj nazwe czesci" << endl;
-    cin >> nazwa;
+    cin.ignore(numeric_limits < streamsize >::max(), '\n');
+    getline(cin, nazwa);
     Czesc::dodaj_czesc();
     do_usuniecia = "Inne | " + nazwa + " | " + marka + " | " + model + " | " + stan + " | " + to_string(cena);
     Czesc::usun_czesc(do_usuniecia);
 }
 void Inne::wyswietl()
 {
-    cout << "Katergoria | Nazwa | Marka | Model | Stan techniczny | Cena " << endl;
+    cout << "Katergoria | Nazwa | Marka | Model | Stan techniczny | Cena [PLN]" << endl;
     Czesc::wyswietl_czesc("Inne");
 }
 
@@ -243,7 +246,7 @@ void Magazyn::wyswietl_czesci()
 
 void Magazyn::wybierz_czesc()
 {
-    if (wybor_czesci >= 1 && wybor_czesci <= 5)
+    if (wybor_czesci[0] >= '1' && wybor_czesci[0] <= '5')
         wyswietl_opcje();
     else
     {
@@ -265,21 +268,24 @@ void Magazyn::wyswietl_opcje()
 }
 void Magazyn::funkcja(Baza* x)
 {
-    if (wybor_opcji == 1)
+    if (wybor_opcji[0] == '1')
     {
         x->dodaj();
         Sleep(500);
         system("CLS");
         wyswietl_czesci();
     }
-    if (wybor_opcji == 2)
+    if (wybor_opcji[0] == '2')
     {
         x->usun();
+        Sleep(500);
+        system("CLS");
+        wyswietl_czesci();
     }
-    if (wybor_opcji == 3)
+    if (wybor_opcji[0] == '3')
     {
         system("CLS");
-        char tmp;
+        string tmp;
         x->wyswietl();
         cout << "Aby wrocic do poprzedniego ekranu nacisnij dowolny przycisk." << endl;
         cin >> tmp;
@@ -289,39 +295,39 @@ void Magazyn::funkcja(Baza* x)
 }
 void Magazyn::wybierz_opcje()
 {
-    if (wybor_opcji == 1 || wybor_opcji == 2 || wybor_opcji == 3)
+    if (wybor_opcji[0] == '1' || wybor_opcji[0] == '2' || wybor_opcji[0] == '3')
     {
-        switch (wybor_czesci)
+        switch (wybor_czesci[0])
         {
-        case 1:
+        case '1':
         {
             Silnik s;
             Baza* wsk = &s;
             funkcja(wsk);
             break;
         }
-        case 2:
+        case '2':
         {
             Skrzynia sb;
             Baza* wsk = &sb;
             funkcja(wsk);
             break;
         }
-        case 3:
+        case '3':
         {
             Karoseria k;
             Baza* wsk = &k;
             funkcja(wsk);
             break;
         }
-        case 4:
+        case '4':
         {
             Opony o;
             Baza* wsk = &o;
             funkcja(wsk);
             break;
         }
-        case 5:
+        case '5':
         {
             Inne i;
             Baza* wsk = &i;
@@ -330,7 +336,7 @@ void Magazyn::wybierz_opcje()
         }
         }
     }
-    else if (wybor_opcji == 4)
+    else if (wybor_opcji[0] == '4')
     {
         system("CLS");
         Menu menu{};
@@ -382,9 +388,9 @@ void Wydruk::wyswietl_stan()
 }
 void Wydruk::wybierz_stan()
 {
-    switch (wybor)
+    switch (wybor[0])
     {
-    case 1:
+    case '1':
     {
         char tmp;
         system("CLS");
@@ -396,7 +402,7 @@ void Wydruk::wybierz_stan()
         m.wyswietl_menu();
         break;
     }
-    case 2:
+    case '2':
     {
         system("CLS");
         Menu m{};
@@ -443,7 +449,7 @@ void Pomoc::wyswietl_pomoc()
 
 void Menu::wyswietl_menu()
 {
-    cout << "Witaj w programie sluzacym do zazadzania magazynem czesci samochodowych. \nDostepne opcje:" << endl
+    cout << "Witaj w programie sluzacym do zarzadzania magazynem czesci samochodowych. \nDostepne opcje:" << endl
         << "1. Wejdz do magazynu." << endl
         << "2. Wydruk stanu magazynu." << endl
         << "3. Pomoc." << endl
@@ -455,30 +461,30 @@ void Menu::wyswietl_menu()
 
 void Menu::wybierz_menu()
 {
-    switch (wybor)
+    switch (wybor[0])
     {
-    case 1:
+    case '1':
     {
         system("CLS");
         Magazyn m{};
         m.wyswietl_czesci();
         break;
     }
-    case 2:
+    case '2':
     {
         system("CLS");
         Wydruk w{};
         w.wyswietl_stan();
         break;
     }
-    case 3:
+    case '3':
     {
         system("CLS");
         Pomoc p{};
         p.wyswietl_pomoc();
         break;
     }
-    case 4:
+    case '4':
         exit(0);
     default:
     {
